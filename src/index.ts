@@ -1,6 +1,7 @@
 import express from 'express';
 import schema from './graphql/schema';
 import { ApolloServer } from 'apollo-server-express';
+import { myPrismaClient } from './db';
 
 const gate = async () => {
   const app = express();
@@ -9,9 +10,13 @@ const gate = async () => {
     res.send('Hello World!');
   });
 
+  const prismaClnt = myPrismaClient;
   const apolloServer = new ApolloServer({
     schema,
     introspection: true,
+    context: () => {
+      return { prisma: prismaClnt };
+    },
   });
 
   await apolloServer.start();
