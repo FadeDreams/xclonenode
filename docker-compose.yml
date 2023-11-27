@@ -53,6 +53,13 @@ services:
     networks:
       - netdc1
 
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    networks:
+      - netdc1
+
 volumes:
   # service1-data:
   postgres-data:
