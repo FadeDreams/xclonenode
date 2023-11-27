@@ -6,5 +6,8 @@ const User = objectType({
     t.id('id');
     t.string('name');
     t.string('email');
+    t.string('password');
   },
 });
+
+export const types = [User];

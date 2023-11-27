@@ -2,6 +2,7 @@ import express from 'express';
 import schema from './graphql/schema';
 import { ApolloServer } from 'apollo-server-express';
 import { myPrismaClient } from './db';
+import { MyContext } from './dto/idto'
 
 const gate = async () => {
   const app = express();
@@ -14,8 +15,8 @@ const gate = async () => {
   const apolloServer = new ApolloServer({
     schema,
     introspection: true,
-    context: () => {
-      return { prisma: prismaClnt };
+    context: ({ req, res }): MyContext => {
+      return { req, res, prisma: prismaClnt };
     },
   });
 
