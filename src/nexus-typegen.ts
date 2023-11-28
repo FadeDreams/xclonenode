@@ -30,6 +30,11 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Mutation: {};
   Query: {};
+  Tweet: { // root type
+    content?: string | null; // String
+    createdAt?: string | null; // String
+    id?: string | null; // String
+  }
   User: { // root type
     email?: string | null; // String
     id?: string | null; // String
@@ -50,7 +55,9 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
+    createTweet: NexusGenRootTypes['Tweet'] | null; // Tweet
     getAllUsers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+    getTweets: Array<NexusGenRootTypes['Tweet'] | null> | null; // [Tweet]
     isAuth: NexusGenRootTypes['User'] | null; // User
     login: boolean | null; // Boolean
     logout: boolean | null; // Boolean
@@ -58,6 +65,12 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     hello: string | null; // String
+  }
+  Tweet: { // field return type
+    content: string | null; // String
+    createdAt: string | null; // String
+    id: string | null; // String
+    user: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
     email: string | null; // String
@@ -69,7 +82,9 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
+    createTweet: 'Tweet'
     getAllUsers: 'User'
+    getTweets: 'Tweet'
     isAuth: 'User'
     login: 'Boolean'
     logout: 'Boolean'
@@ -77,6 +92,12 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     hello: 'String'
+  }
+  Tweet: { // field return type name
+    content: 'String'
+    createdAt: 'String'
+    id: 'String'
+    user: 'User'
   }
   User: { // field return type name
     email: 'String'
@@ -88,6 +109,9 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createTweet: { // args
+      content: string; // String!
+    }
     login: { // args
       email: string; // String!
       password: string; // String!

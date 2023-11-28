@@ -10,4 +10,19 @@ export const User = objectType({
   },
 });
 
-export const types = [User];
+export const Tweet = objectType({
+  name: 'Tweet',
+  definition(t) {
+    t.string('id');
+    t.string('content');
+    t.string('createdAt');
+    t.field('user', {
+      type: 'User',
+      resolve: async (parent, args, context) => {
+        return context.prisma.tweet.findUnique({ where: { id: parent.id } }).user();
+      },
+    });
+  },
+});
+
+export const types = [User, Tweet];

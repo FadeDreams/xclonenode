@@ -3,7 +3,7 @@ import { compare } from "bcryptjs";
 import { MyContext } from '../dto/idto';
 import * as constatns from '../constants';
 import { hash } from "bcryptjs";
-import { User } from './types'
+import { User, Tweet } from './types'
 
 export const Mutation = mutationType({
   definition(t) {
@@ -90,11 +90,61 @@ export const Mutation = mutationType({
         const users = await ctx.prisma.user.findMany();
 
         // Convert the ids to strings
-        users.forEach(user => {
-          user.id = user.id.toString();
-        });
+        // users.forEach(user => {
+        //   user.id = user.id.toString();
+        // });
 
         return users;
+      },
+    });
+
+    // Create Tweet Mutation
+    t.field("createTweet", {
+      type: Tweet,
+      args: {
+        content: nonNull(stringArg()),
+      },
+      resolve: async (_, { content }, ctx: MyContext) => {
+        // Check if the user is authenticated
+        if (!ctx.req.session.userId) {
+          throw new Error(constatns.NOT_AUTHENTICATED);
+        }
+
+        // Create the tweet
+        const tweet = await ctx.prisma.tweet.create({
+          data: {
+            content,
+            user: {
+              connect: {
+                id: ctx.req.session.userId,
+              },
+            },
+          },
+        });
+
+        return tweet;
+      },
+    });
+
+    // Get Tweets Mutation
+    t.list.field("getTweets", {
+      type: Tweet,
+      resolve: async (_, __, ctx: MyContext) => {
+        // Check if the user is authenticated
+        if (!ctx.req.session.userId) {
+          throw new Error(constatns.NOT_AUTHENTICATED);
+        }
+
+        // Get tweets for the authenticated user
+        const tweets = await ctx.prisma.tweet.findMany({
+          where: {
+            user: {
+              id: ctx.req.session.userId,
+            },
+          },
+        });
+
+        return tweets;
       },
     });
   },

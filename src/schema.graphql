@@ -3,7 +3,9 @@
 
 
 type Mutation {
+  createTweet(content: String!): Tweet
   getAllUsers: [User]
+  getTweets: [Tweet]
   isAuth: User
   login(email: String!, password: String!): Boolean
   logout: Boolean
@@ -12,6 +14,13 @@ type Mutation {
 
 type Query {
   hello: String
+}
+
+type Tweet {
+  content: String
+  createdAt: String
+  id: String
+  user: User
 }
 
 type User {
