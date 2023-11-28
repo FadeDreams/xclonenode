@@ -16,16 +16,15 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/nodeprj/xclonenode
-badd +10 prisma/schema.prisma
-badd +85 tsconfig.json
-badd +1 package.json
-badd +1 src/graphql/query.ts
-badd +1 .env
-badd +15 src/graphql/mutation.ts
+badd +1 src/schema.graphql
+badd +1 prisma/schema.prisma
+badd +27 src/index.ts
+badd +34 src/graphql/mutation.ts
+badd +10 src/dto/idto.ts
 argglobal
 %argdel
 $argadd ~/nodeprj/xclonenode
-edit tsconfig.json
+edit src/index.ts
 wincmd t
 let s:save_winminheight = &winminheight
 let s:save_winminwidth = &winminwidth
@@ -43,14 +42,16 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-2
+13
 normal! zo
-let s:l = 85 - ((4 * winheight(0) + 15) / 30)
+24
+normal! zo
+let s:l = 27 - ((11 * winheight(0) + 15) / 30)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 85
-normal! 019|
+keepjumps 27
+normal! 0
 lcd ~/nodeprj/xclonenode
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

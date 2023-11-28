@@ -1,9 +1,9 @@
 import { objectType } from 'nexus';
 
-const User = objectType({
+export const User = objectType({
   name: 'User',
   definition(t) {
-    t.id('id');
+    t.string('id');
     t.string('name');
     t.string('email');
     t.string('password');

@@ -30,6 +30,12 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Mutation: {};
   Query: {};
+  User: { // root type
+    email?: string | null; // String
+    id?: string | null; // String
+    name?: string | null; // String
+    password?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -44,21 +50,37 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
+    isAuth: NexusGenRootTypes['User'] | null; // User
     login: boolean | null; // Boolean
+    logout: boolean | null; // Boolean
     register: boolean | null; // Boolean
   }
   Query: { // field return type
     hello: string | null; // String
   }
+  User: { // field return type
+    email: string | null; // String
+    id: string | null; // String
+    name: string | null; // String
+    password: string | null; // String
+  }
 }
 
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
+    isAuth: 'User'
     login: 'Boolean'
+    logout: 'Boolean'
     register: 'Boolean'
   }
   Query: { // field return type name
     hello: 'String'
+  }
+  User: { // field return type name
+    email: 'String'
+    id: 'String'
+    name: 'String'
+    password: 'String'
   }
 }
 
