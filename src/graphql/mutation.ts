@@ -5,8 +5,6 @@ import * as constatns from '../constants';
 import { hash } from "bcryptjs";
 import { User } from './types'
 
-
-
 export const Mutation = mutationType({
   definition(t) {
     // Registration Mutation
@@ -81,6 +79,22 @@ export const Mutation = mutationType({
         user.id = user.id.toString();
 
         return user;
+      },
+    });
+
+    // GetAllUsers Mutation
+    t.list.field("getAllUsers", {
+      type: User,
+      resolve: async (_, __, ctx: MyContext) => {
+        // Get all users
+        const users = await ctx.prisma.user.findMany();
+
+        // Convert the ids to strings
+        users.forEach(user => {
+          user.id = user.id.toString();
+        });
+
+        return users;
       },
     });
   },

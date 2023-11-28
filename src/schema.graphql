@@ -3,6 +3,7 @@
 
 
 type Mutation {
+  getAllUsers: [User]
   isAuth: User
   login(email: String!, password: String!): Boolean
   logout: Boolean

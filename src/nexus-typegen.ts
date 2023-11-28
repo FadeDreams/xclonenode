@@ -50,6 +50,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
+    getAllUsers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     isAuth: NexusGenRootTypes['User'] | null; // User
     login: boolean | null; // Boolean
     logout: boolean | null; // Boolean
@@ -68,6 +69,7 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
+    getAllUsers: 'User'
     isAuth: 'User'
     login: 'Boolean'
     logout: 'Boolean'
