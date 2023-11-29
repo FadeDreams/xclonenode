@@ -3,40 +3,23 @@
 version: '3.8'
 
 networks:
-  netdc1:
+  my_network:
     driver: bridge
 
 services:
 
-  # service1:
-  #   build:
-  #     context: ./service1
-  #     dockerfile: Dockerfile
-  #   restart: always
-  #   ports:
-  #     - "8081:8081"
-  #   deploy:
-  #     mode: replicated
-  #     replicas: 1
-  #   volumes:
-  #     - service1-data:/path/to/service1/data
-  #   networks:
-  #     - netdc1
-  
-  # client:
-  #   build:
-  #     context: ./client
-  #     dockerfile: Dockerfile
-  #   restart: always
-  #   ports:
-  #     - "8080:8080"
-  #   deploy:
-  #     mode: replicated
-  #     replicas: 1
-  #   volumes:
-  #     - client-data:/path/to/client/data
-  #   networks:
-  #     - netdc1
+  nodeapp1:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - nodeapp1-data:/app/data
+    env_file:
+      - ./.env
+    networks:
+      - my_network
   
   postgres:
     image: postgres:14-alpine
@@ -51,15 +34,15 @@ services:
       - postgres-data:/var/lib/postgresql/data
       - ./init-scripts:/docker-entrypoint-initdb.d  # Mount the init-scripts directory
     networks:
-      - netdc1
+      - my_network
 
   redis:
     image: "redis:latest"
     ports:
       - "6379:6379"
     networks:
-      - netdc1
+      - my_network
 
 volumes:
-  # service1-data:
+  nodeapp1-data:
   postgres-data:

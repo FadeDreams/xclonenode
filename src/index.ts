@@ -13,7 +13,7 @@ const gate = async () => {
   dotenv.config();
   const prismaClnt = myPrismaClient;
 
-  const RedisClnt = new Redis();
+  const RedisClnt = new Redis({ host: 'redis' });
   // const RedisStore = connectRedis(session);
   const RedisStore = require("connect-redis").default;
   const redisStore = new RedisStore({ client: RedisClnt });
