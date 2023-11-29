@@ -147,5 +147,43 @@ export const Mutation = mutationType({
         return tweets;
       },
     });
+    t.field("deleteTweet", {
+      type: Tweet,
+      args: {
+        tweetId: nonNull(stringArg()),
+      },
+      resolve: async (_, { tweetId }, ctx: MyContext) => {
+        // Check if the user is authenticated
+        if (!ctx.req.session.userId) {
+          throw new Error(constatns.NOT_AUTHENTICATED);
+        }
+
+        // Find the tweet by ID
+        const tweet = await ctx.prisma.tweet.findUnique({
+          where: {
+            id: tweetId,
+          },
+        });
+
+        // Check if the tweet exists
+        if (!tweet) {
+          throw new Error("Tweet not found");
+        }
+
+        // Check if the authenticated user owns the tweet
+        if (tweet.userId !== ctx.req.session.userId) {
+          throw new Error("Unauthorized: You don't own this tweet");
+        }
+
+        // Delete the tweet
+        const deletedTweet = await ctx.prisma.tweet.delete({
+          where: {
+            id: tweetId,
+          },
+        });
+
+        return deletedTweet;
+      },
+    });
   },
 });

@@ -16,15 +16,15 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/nodeprj/xclonenode
-badd +1 src/schema.graphql
 badd +1 prisma/schema.prisma
-badd +27 src/index.ts
-badd +34 src/graphql/mutation.ts
-badd +10 src/dto/idto.ts
+badd +129 src/graphql/mutation.ts
+badd +13 src/graphql/types.ts
+badd +1 src/index.ts
+badd +36 tsconfig.json
 argglobal
 %argdel
 $argadd ~/nodeprj/xclonenode
-edit src/index.ts
+edit src/graphql/mutation.ts
 wincmd t
 let s:save_winminheight = &winminheight
 let s:save_winminwidth = &winminwidth
@@ -33,7 +33,7 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-balt src/graphql/mutation.ts
+balt src/graphql/types.ts
 setlocal fdm=indent
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -42,15 +42,41 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-13
+9
 normal! zo
-24
+10
 normal! zo
-let s:l = 27 - ((11 * winheight(0) + 15) / 30)
+12
+normal! zo
+18
+normal! zo
+32
+normal! zo
+87
+normal! zo
+103
+normal! zo
+108
+normal! zo
+115
+normal! zo
+116
+normal! zo
+118
+normal! zo
+131
+normal! zo
+133
+normal! zo
+140
+normal! zo
+141
+normal! zo
+let s:l = 149 - ((27 * winheight(0) + 15) / 30)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 27
+keepjumps 149
 normal! 0
 lcd ~/nodeprj/xclonenode
 tabnext 1
