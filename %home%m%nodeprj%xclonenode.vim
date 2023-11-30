@@ -15,12 +15,12 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +1 ~/nodeprj/xclonenode
-badd +1 src/graphql/mutation.ts
+badd +4 src/graphql/mutation.ts
+badd +0 index.js
 argglobal
 %argdel
-$argadd ~/nodeprj/xclonenode
-edit src/graphql/mutation.ts
+$argadd .
+edit index.js
 argglobal
 setlocal fdm=indent
 setlocal fde=0
@@ -30,19 +30,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-9
-normal! zo
-10
-normal! zo
-151
-normal! zo
-156
-normal! zo
-163
-normal! zo
-180
-normal! zo
-let s:l = 1 - ((0 * winheight(0) + 15) / 30)
+let s:l = 1 - ((0 * winheight(0) + 11) / 22)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
